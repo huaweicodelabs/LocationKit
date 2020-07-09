@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <Button
+        android:id="@+id/geo_fance_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="geoFenceLocation"
+        android:text="@string/geo_fance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054"></Button>
+
+    <Button
+        android:id="@+id/fuse_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="fuseLocation"
+        android:text="@string/fuse_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geo_fance_location"
+        app:layout_constraintVertical_bias="0.052"></Button>
+
+    <Button
+        android:id="@+id/mock_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setMockLocation"
+        android:text="@string/mock_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fuse_location"
+        app:layout_constraintVertical_bias="0.068"></Button>
+
+    <Button
+        android:id="@+id/mock_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="setMockMode"
+        android:text="@string/mock_mode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.052"></Button>
+
+    <Button
+        android:id="@+id/locationHD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="locationHD"
+        android:text="@string/location_hd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.383"></Button>
+
+    <Button
+        android:id="@+id/lastLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="lastLocation"
+        android:text="@string/get_last_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.215"></Button>
+
+
+    <Button
+        android:id="@+id/locationAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="locationAvailability"
+        android:text="@string/hwlocation_getLocationAvailability"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.571"></Button>
+
+    <Button
+        android:id="@+id/location_activity_update"
+        style="@style/ButtonStyle"
+        android:text="@string/hwlocation_activity"
+        android:onClick="locationActivityUpdate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.933" />
+
+    <Button
+        android:id="@+id/location_activity_transition_update"
+        style="@style/ButtonStyle"
+        android:onClick="locationTransitionUpdate"
+        android:text="@string/hwlocation_activity_transition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mock_location"
+        app:layout_constraintVertical_bias="0.747" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

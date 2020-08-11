@@ -36,19 +36,19 @@
 
     1). Assigning App Permissions
     You need to apply for the permissions in the Manifest file.
-    Code ��location/app/src/AndroidManifest.xml
+    Code :/location/app/src/AndroidManifest.xml
     
     2). Creating a Location Service Client.
     Create a FusedLocationProviderClient instance in the OnCreate() method of the activity and use the instance to call location-related APIs.
-    Code ��location/app/src/main/java/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.java
+    Code :/location/app/src/main/java/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.java
     
     3). Checking the Device Location Settings.
     you are advised to check whether the device settings meet the location requirements before continuously obtaining location information.
-    Code ��location/app/src/main/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.kt
+    Code :/location/app/src/main/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.kt
     
     4). Continuously Obtaining the Location Information.
     To enable your app to continuously obtain the device location, you can use the requestLocationUpdates() API provided by the HUAWEI Location Kit service. 
-    Code ��location/app/src/main/java/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.java
+    Code :/location/app/src/main/java/com/hms/locationki/fusedlocation/RequestLocationUpdatesWithCallbackActivity.java
     
 
 ##  License

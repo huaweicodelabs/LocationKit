@@ -1,19 +1,18 @@
 <!--
   ~ Copyright (c) Huawei Technologies Co., Ltd. 2019-2019. All rights reserved.
   -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:focusable="true"
               android:focusableInTouchMode="true"
               android:orientation="vertical"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              tools:context="com.huawei.locationdemo.RequestLocationUpdatesWithCallbackActivity">
+              android:paddingLeft="@dimen/activity_title_margin"
+              android:paddingTop="@dimen/activity_title_margin"
+              android:paddingRight="@dimen/activity_title_margin"
+
+              tools:context=".location.fusedlocation.RequestLocationUpdatesWithCallbackActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,38 +26,19 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="requestLocationUpdatesWithCallback"/>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#123456"/>
-
+               style="@style/TitleStyle"
+                android:text="@string/hwlocation_locationupdates"/>
 
             <Button
                 android:id="@+id/location_requestLocationUpdatesWithCallback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="requestLocationUpdates with callback"/>
+                style="@style/ButtonStyle"
+                android:text="@string/hwlocation_requestLocationUpdatesWithCallback"/>
 
             <Button
                 android:id="@+id/location_removeLocationUpdatesWithCallback"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="removeLocationUpdates with callback"/>
+                style="@style/ButtonStyle"
+                android:text="@string/hwlocation_removeLocationUpdatesWithCallback"/>
 
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#123456"/>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#123456"/>
 
             <FrameLayout
                 android:id="@+id/framelog"

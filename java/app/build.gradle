@@ -1,30 +1,44 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.huawei.agconnect'
 android {
+    lintOptions {
+        abortOnError false
+    }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.huawei.locationdemo"
-        minSdkVersion 19
+        applicationId "com.huawei.hmssdksample2"
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("xxx.xxx")
+            storePassword "xxxxxx"
+            keyAlias "xxxxxx"
+            keyPassword "xxxxxx"
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
         }
     }
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.huawei.hms:location:5.0.0.301'
+    implementation 'com.huawei.hms:location:5.0.2.301'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

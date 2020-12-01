@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hms.locationkit">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -52,10 +53,10 @@
         <activity
             android:name=".useractivity.ActivityConversionActivity"
             android:configChanges="orientation|screenSize" />
+        <activity android:name=".activity.BaseActivity" />
         <activity
             android:name=".useractivity.ActivityIdentificationActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".activity.BaseActivity" />
 
         <receiver
             android:name=".geofence.GeoFenceBroadcastReceiver"
@@ -79,6 +80,7 @@
                 <action android:name="com.huawei.hmssample.geofence.GeoFenceBroadcastReceiver.ACTION_PROCESS_LOCATION" />
             </intent-filter>
         </receiver>
+
         <provider
             android:name="com.huawei.hms.update.provider.UpdateProvider"
             android:authorities="${applicationId}.hms.update.provider"

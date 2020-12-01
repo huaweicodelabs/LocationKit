@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="10dp"
-            android:background="@color/emui_color_gray_10"
+            android:background="#E6E6E6"
             android:layout_marginRight="20dp">
         </ProgressBar>
     </LinearLayout>
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginTop="10dp"
-            android:background="@color/emui_color_gray_7"
+            android:background="#808080"
             android:layout_marginRight="20dp">
         </ProgressBar>
     </LinearLayout>
@@ -227,7 +227,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="10dp"
-        android:background="@color/upsdk_blue_text_007dff"
+        android:background="#007dff"
         android:layout_marginRight="20dp">
     </ProgressBar>
     </LinearLayout>

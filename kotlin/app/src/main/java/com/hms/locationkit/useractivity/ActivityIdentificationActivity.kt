@@ -1,18 +1,16 @@
-/*
-*       Copyright 2020. Huawei Technologies Co., Ltd. All rights reserved.
-
-        Licensed under the Apache License, Version 2.0 (the "License");
-        you may not use this file except in compliance with the License.
-        You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        Unless required by applicable law or agreed to in writing, software
-        distributed under the License is distributed on an "AS IS" BASIS,
-        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-        See the License for the specific language governing permissions and
-        limitations under the License.
-*/
+/**
+ * Copyright 2020 Huawei Technologies co, Ltd All
+ * Rights reserved
+ * Licenced under the Apache License,Version 2.0(the "License");
+ * you may not use this file except in compliance with license
+ * you may obtain a copy of the license at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by application law or agreed to in writing software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permission and
+ * limitations under the License
+ */
 package com.hms.locationkit.useractivity
 
 import android.app.PendingIntent
@@ -21,115 +19,169 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import com.hms.locationkit.R
 import com.hms.locationkit.activity.BaseActivity
 import com.hms.locationkit.fusedlocation.LocationBroadcastReceiver
-import com.hms.locationkit.logger.LocationLog.Companion.e
-import com.hms.locationkit.logger.LocationLog.Companion.i
-import com.hms.locationkit.utils.RequestPermission.Companion.requestActivityTransitionPermission
+import com.hms.locationkit.logger.LocationLog
+import com.hms.locationkit.utils.RequestPermission
+import com.hms.locationkit.utils.Utils
 import com.hms.locationkit.utils.Utils.ACTION_PROCESS_LOCATION
-import com.hms.locationkit.utils.Utils.addIdentificationListener
 import com.hms.locationkit.utils.Utils.removeIdentificationListener
 import com.huawei.hms.location.ActivityIdentification
 import com.huawei.hms.location.ActivityIdentificationData
 import com.huawei.hms.location.ActivityIdentificationService
 import kotlinx.android.synthetic.main.activity_transition_type.*
 
-class ActivityIdentificationActivity : BaseActivity(),
-    View.OnClickListener {
-    var TAG = "ActivityTransitionUpdate"
-    var activityIdentificationService: ActivityIdentificationService? = null
+class ActivityIdentificationActivity : BaseActivity(), View.OnClickListener {
+    companion object {
+        private var TAG = "ActivityTransitionUpdate"
+        private const val ProgressBarOriginWidth = 100
+        private const val Enlarge = 6
+    }
+
     private var pendingIntent: PendingIntent? = null
+    private lateinit var activityIdentificationService: ActivityIdentificationService
+    private lateinit var type0: LayoutParams
+    private lateinit var type1: LayoutParams
+    private lateinit var type2: LayoutParams
+    private lateinit var type3: LayoutParams
+    private lateinit var type4: LayoutParams
+    private lateinit var type7: LayoutParams
+    private lateinit var type8: LayoutParams
+    private var activityInVehicle: LinearLayout? = null
+    private var activityOnBicycle: LinearLayout? = null
+    private var activityOnFoot: LinearLayout? = null
+    private var activityStill: LinearLayout? = null
+    private var activityUnknown: LinearLayout? = null
+    private var activityWalking: LinearLayout? = null
+    private var activityRunning: LinearLayout? = null
+
+    fun setData(list: List<ActivityIdentificationData>) {
+        reSet()
+        for (i in list.indices) {
+            val type = list[i].identificationActivity
+            val value = list[i].possibility
+            try {
+                when (type) {
+                    ActivityIdentificationData.VEHICLE -> {
+                        type0.width = type0.width + value * Enlarge
+                        activityInVehicle?.layoutParams = type0
+                    }
+                    ActivityIdentificationData.BIKE -> {
+                        type1.width = type1.width + value * Enlarge
+                        activityOnBicycle?.layoutParams = type1
+                    }
+                    ActivityIdentificationData.FOOT -> {
+                        type2.width = type2.width + value * Enlarge
+                        activityOnFoot?.layoutParams = type2
+                    }
+                    ActivityIdentificationData.STILL -> {
+                        type3.width = type3.width + value * Enlarge
+                        activityStill?.layoutParams = type3
+                    }
+                    ActivityIdentificationData.OTHERS -> {
+                        type4.width = type4.width + value * Enlarge
+                        activityUnknown?.layoutParams = type4
+                    }
+                    ActivityIdentificationData.WALKING -> {
+                        type7.width = type7.width + value * Enlarge
+                        activityWalking?.layoutParams = type7
+                    }
+                    ActivityIdentificationData.RUNNING -> {
+                        type8.width = type8.width + value * Enlarge
+                        activityRunning?.layoutParams = type8
+                    }
+
+                }
+            } catch (e: Exception) {
+                LocationLog.e("ActivityTransitionUpdate", "setdata Exception")
+            }
+        }
+    }
+
+    private fun reSet() {
+        type0.width = ProgressBarOriginWidth
+        activityInVehicle?.layoutParams = type0
+        type1.width = ProgressBarOriginWidth
+        activityOnBicycle?.layoutParams = type1
+        type2.width = ProgressBarOriginWidth
+        activityOnFoot?.layoutParams = type2
+        type3.width = ProgressBarOriginWidth
+        activityStill?.layoutParams = type3
+        type4.width = ProgressBarOriginWidth
+        activityUnknown?.layoutParams = type4
+        type7.width = ProgressBarOriginWidth
+        activityWalking?.layoutParams = type7
+        type8.width = ProgressBarOriginWidth
+        activityRunning?.layoutParams = type8
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transition_type)
         activityIdentificationService = ActivityIdentification.getService(this)
-        requestActivityTransitionPermission(this)
+        RequestPermission.requestActivityTransitionPermission(this)
         requestActivityTransitionUpdate.setOnClickListener(this)
         removeActivityTransitionUpdate.setOnClickListener(this)
-        activityIN_VEHICLE =
-            activity_IN_VEHICLE as LinearLayout
-        params_vehicle =
-            activityIN_VEHICLE!!.layoutParams as LinearLayout.LayoutParams
-        activityON_BICYCLE =
-            activity_ON_BICYCLE as LinearLayout
-        params_bicycle =
-            activityON_BICYCLE!!.layoutParams as LinearLayout.LayoutParams
-        activityON_FOOT =
-            activity_ON_FOOT as LinearLayout
-        params_foot =
-            activityON_FOOT!!.layoutParams as LinearLayout.LayoutParams
-        activitySTILL =
-            activity_STILL as LinearLayout
-        params_still =
-            activitySTILL!!.layoutParams as LinearLayout.LayoutParams
-        activityUNKNOWN =
-            activity_UNKNOWN as LinearLayout
-        params_unknown =
-            activityUNKNOWN!!.layoutParams as LinearLayout.LayoutParams
-        activityWALKING =
-            activity_WALKING as LinearLayout
-        params_walking =
-            activityWALKING!!.layoutParams as LinearLayout.LayoutParams
-        activityRunning =
-            activity_Running as LinearLayout
-        params_running =
-            activityRunning!!.layoutParams as LinearLayout.LayoutParams
+        type0 = activityInVehicle?.layoutParams as LayoutParams
+        type1 = activityOnBicycle?.layoutParams as LayoutParams
+        type2 = activityOnFoot?.layoutParams as LayoutParams
+        type3 = activityStill?.layoutParams as LayoutParams
+        type4 = activityUnknown?.layoutParams as LayoutParams
+        type7 = activityWalking?.layoutParams as LayoutParams
+        type8 = activityRunning?.layoutParams as LayoutParams
         addLogFragment()
         reSet()
     }
 
-    fun requestActivityUpdates(detectionIntervalMillis: Long) {
+    private fun requestActivityUpdates(detectionIntervalMillis: Long) {
         try {
-            if (pendingIntent != null) {
+            pendingIntent?.let {
                 removeActivityUpdates()
             }
+
             pendingIntent = getPendingIntent()
-            addIdentificationListener()
-            activityIdentificationService!!.createActivityIdentificationUpdates(
+            Utils.addIdentificationListener()
+            activityIdentificationService.createActivityIdentificationUpdates(
                 detectionIntervalMillis,
                 pendingIntent
             )
                 .addOnSuccessListener {
-                    i(
+                    LocationLog.i(
                         TAG,
                         "createActivityIdentificationUpdates onSuccess"
                     )
                 }
                 .addOnFailureListener { e ->
-                    e(
+                    LocationLog.e(
                         TAG,
-                        "createActivityIdentificationUpdates onFailure:" + e.message
+                        "createActivityIdentificationUpdates onFailure:${e.message}"
                     )
                 }
         } catch (e: Exception) {
-            e(
-                TAG,
-                "createActivityIdentificationUpdates exception:" + e.message
-            )
+            LocationLog.e(TAG, "createActivityIdentificationUpdates exception:${e.message}")
         }
     }
 
-    fun removeActivityUpdates() {
+    private fun removeActivityUpdates() {
         reSet()
         try {
             removeIdentificationListener()
             Log.i(TAG, "start to removeActivityUpdates")
-            activityIdentificationService!!.deleteActivityIdentificationUpdates(pendingIntent)
+            activityIdentificationService.deleteActivityIdentificationUpdates(pendingIntent)
                 .addOnSuccessListener {
-                    i(
+                    LocationLog.i(
                         TAG,
                         "deleteActivityIdentificationUpdates onSuccess"
                     )
                 }
                 .addOnFailureListener { e ->
-                    e(
-                        TAG,
-                        "deleteActivityIdentificationUpdates onFailure:" + e.message
-                    )
+                    LocationLog.e(TAG, "deleteActivityIdentificationUpdates onFailure:${e.message}")
                 }
         } catch (e: Exception) {
-            e(TAG, "removeActivityUpdates exception:" + e.message)
+            LocationLog.e(TAG, "removeActivityUpdates exception:${e.message}")
         }
     }
 
@@ -138,18 +190,13 @@ class ActivityIdentificationActivity : BaseActivity(),
             when (v.id) {
                 R.id.requestActivityTransitionUpdate -> requestActivityUpdates(5000)
                 R.id.removeActivityTransitionUpdate -> removeActivityUpdates()
-                else -> {
-                }
             }
         } catch (e: Exception) {
-            e(
-                TAG,
-                "RequestLocationUpdatesWithCallbackActivity Exception:$e"
-            )
+            LocationLog.e(TAG, "RequestLocationUpdatesWithCallbackActivity Exception:$e")
         }
     }
 
-    private fun getPendingIntent(): PendingIntent {
+    private fun getPendingIntent(): PendingIntent? {
         val intent = Intent(this, LocationBroadcastReceiver::class.java)
         intent.action = ACTION_PROCESS_LOCATION
         return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -160,100 +207,5 @@ class ActivityIdentificationActivity : BaseActivity(),
             removeActivityUpdates()
         }
         super.onDestroy()
-    }
-
-    companion object {
-        private const val progressBarOriginWidth = 100
-        private const val enlarge = 6
-        private var params_vehicle: LinearLayout.LayoutParams? = null
-        private var params_bicycle: LinearLayout.LayoutParams? = null
-        private var params_foot: LinearLayout.LayoutParams? = null
-        private var params_still: LinearLayout.LayoutParams? = null
-        private var params_unknown: LinearLayout.LayoutParams? = null
-        private var params_walking: LinearLayout.LayoutParams? = null
-        private var params_running: LinearLayout.LayoutParams? = null
-        private var activityIN_VEHICLE: LinearLayout? = null
-        private var activityON_BICYCLE: LinearLayout? = null
-        private var activityON_FOOT: LinearLayout? = null
-        private var activitySTILL: LinearLayout? = null
-        private var activityUNKNOWN: LinearLayout? = null
-        private var activityWALKING: LinearLayout? = null
-        private var activityRunning: LinearLayout? = null
-        fun setData(list: List<ActivityIdentificationData>) {
-            reSet()
-            for (i in list.indices) {
-                val type = list[i].identificationActivity
-                val value = list[i].possibility
-                try {
-                    when (type) {
-                        ActivityIdentificationData.VEHICLE -> {
-                            params_vehicle!!.width =
-                                params_vehicle!!.width + value * enlarge
-                            activityIN_VEHICLE!!.layoutParams = params_vehicle
-                        }
-                        ActivityIdentificationData.BIKE -> {
-                            params_bicycle!!.width =
-                                params_bicycle!!.width + value * enlarge
-                            activityON_BICYCLE!!.layoutParams = params_bicycle
-                        }
-                        ActivityIdentificationData.FOOT -> {
-                            params_foot!!.width =
-                                params_foot!!.width + value * enlarge
-                            activityON_FOOT!!.layoutParams = params_foot
-                        }
-                        ActivityIdentificationData.STILL -> {
-                            params_still!!.width =
-                                params_still!!.width + value * enlarge
-                            activitySTILL!!.layoutParams = params_still
-                        }
-                        ActivityIdentificationData.OTHERS -> {
-                            params_unknown!!.width =
-                                params_unknown!!.width + value * enlarge
-                            activityUNKNOWN!!.layoutParams = params_unknown
-                        }
-                        ActivityIdentificationData.WALKING -> {
-                            params_walking!!.width =
-                                params_walking!!.width + value * enlarge
-                            activityWALKING!!.layoutParams = params_walking
-                        }
-                        ActivityIdentificationData.RUNNING -> {
-                            params_running!!.width =
-                                params_running!!.width + value * enlarge
-                            activityRunning!!.layoutParams = params_running
-                        }
-                        else -> {
-                        }
-                    }
-                } catch (e: RuntimeException) {
-                    throw e
-                } catch (e: Exception) {
-                    e("ActivityTransitionUpdate", "setdata Exception")
-                }
-            }
-        }
-
-        fun reSet() {
-            params_vehicle!!.width =
-                progressBarOriginWidth
-            activityIN_VEHICLE!!.layoutParams = params_vehicle
-            params_bicycle!!.width =
-                progressBarOriginWidth
-            activityON_BICYCLE!!.layoutParams = params_bicycle
-            params_foot!!.width =
-                progressBarOriginWidth
-            activityON_FOOT!!.layoutParams = params_foot
-            params_still!!.width =
-                progressBarOriginWidth
-            activitySTILL!!.layoutParams = params_still
-            params_unknown!!.width =
-                progressBarOriginWidth
-            activityUNKNOWN!!.layoutParams = params_unknown
-            params_walking!!.width =
-                progressBarOriginWidth
-            activityWALKING!!.layoutParams = params_walking
-            params_running!!.width =
-                progressBarOriginWidth
-            activityRunning!!.layoutParams = params_running
-        }
     }
 }

@@ -55,7 +55,7 @@ class LocationBroadcastReceiver : BroadcastReceiver() {
                     LocationLog.i(TAG, "activityRecognitionResult:$activityRecognitionResult")
                     val list =
                         activityRecognitionResult.activityIdentificationDatas
-                    ActivityIdentificationActivity().setData(list)
+                    ActivityIdentificationActivity.setData(list)
                 }
                 if (LocationResult.hasResult(intent)) {
                     val result = LocationResult.extractResult(intent)

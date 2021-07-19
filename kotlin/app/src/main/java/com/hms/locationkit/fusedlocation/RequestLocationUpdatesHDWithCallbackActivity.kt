@@ -174,7 +174,7 @@ class RequestLocationUpdatesHDWithCallbackActivity : BaseActivity(), View.OnClic
     private fun logResult(locationRequest: LocationResult?) {
         locationRequest?.let {
             Log.i(TAG, "getLocationWithHd callback  onLocationResult locationResult is not null")
-            val locations = locationRequest.locations
+            val locations = locationRequest.getLocations()
             var hdFlag: String
             if (locations.isNotEmpty()) {
                 Log.i(TAG, "getLocationWithHd callback  onLocationResult location is not empty")

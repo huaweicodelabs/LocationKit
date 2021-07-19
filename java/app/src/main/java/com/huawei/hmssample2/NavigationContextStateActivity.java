@@ -23,7 +23,6 @@ import android.widget.EditText;
 
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
-import com.huawei.hmf.tasks.Task;
 import com.huawei.hms.location.LocationEnhanceService;
 import com.huawei.hms.location.LocationServices;
 import com.huawei.hms.location.NavigationRequest;

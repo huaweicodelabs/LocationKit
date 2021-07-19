@@ -1,5 +1,5 @@
 {
-  "priority": 102,
+  "priority": 200,
   "interval": 5000,
   "fastestInterval": 5000,
   "isFastestIntervalExplicitlySet": false,
@@ -8,7 +8,4 @@
   "numUpdates": 2147483647,
   "smallestDisplacement": 0,
   "maxWaitTime": 0,
-  "needAddress": false,
-  "language": "zh",
-  "countryCode": "CN"
 }

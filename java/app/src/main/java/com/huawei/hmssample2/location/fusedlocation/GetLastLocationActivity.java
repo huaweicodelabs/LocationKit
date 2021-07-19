@@ -72,7 +72,17 @@ public class GetLastLocationActivity extends LocationBaseActivity implements OnC
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(Exception e) {
-                    LocationLog.e(TAG, "getLastLocation onFailure:" + e.getMessage());
+                    if (e instanceof ResolvableApiException) {
+                        ResolvableApiException apiException = (ResolvableApiException) e;
+                        LocationLog.e(TAG, "getLastLocation onFailure:" + apiException.getStatusCode());
+                        try {
+                            apiException.startResolutionForResult(GetLastLocationActivity.this, 2009);
+                        } catch (IntentSender.SendIntentException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        LocationLog.e(TAG, "getLastLocation onFailure:" + e.getMessage());
+                    }
                 }
             });
         } catch (Exception e) {

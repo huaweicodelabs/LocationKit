@@ -4,16 +4,20 @@ android {
     lintOptions {
         abortOnError false
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.huawei.hmssdksample2"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
     signingConfigs {
         release {
             storeFile file("xxx.xxx")
@@ -39,6 +43,6 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.huawei.hms:location:5.1.0.301'
+    implementation 'com.huawei.hms:location:6.0.0.302'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

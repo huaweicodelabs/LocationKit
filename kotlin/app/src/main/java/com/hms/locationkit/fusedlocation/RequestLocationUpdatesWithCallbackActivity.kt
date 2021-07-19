@@ -70,7 +70,7 @@ class RequestLocationUpdatesWithCallbackActivity : BaseActivity(), View.OnClickL
                 override fun onLocationResult(locationResult: LocationResult?) {
                     if (locationResult != null) {
                         val locations: List<Location> =
-                            locationResult.locations
+                            locationResult.getLocations()
                         if (locations.isNotEmpty()) {
                             for (location in locations) {
                                 LocationLog.i(

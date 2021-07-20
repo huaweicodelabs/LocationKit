@@ -13,6 +13,7 @@
         See the License for the specific language governing permissions and
         limitations under the License.
 */
+
 package com.huawei.logger;
 
 /**
@@ -21,7 +22,6 @@ package com.huawei.logger;
  * @since 2020-5-11
  */
 public class LogCatWrapper implements LogNode {
-
     private LogNode mNext;
 
     public LogNode getNext() {
@@ -38,16 +38,12 @@ public class LogCatWrapper implements LogNode {
         if (useMsg == null) {
             useMsg = "";
         }
-
         if (tr != null) {
             useMsg += "\n" + android.util.Log.getStackTraceString(tr);
         }
-
         android.util.Log.println(priority, tag, useMsg);
-
         if (mNext != null) {
             mNext.println(priority, tag, msg, tr);
         }
     }
-
 }

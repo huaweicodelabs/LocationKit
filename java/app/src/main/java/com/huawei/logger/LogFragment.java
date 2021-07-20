@@ -16,8 +16,6 @@
 
 package com.huawei.logger;
 
-import com.huawei.hmssample2.Constant;
-
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -31,6 +29,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 
+import com.huawei.locationsample6.Constant;
+
 /**
  * the fragment will be used to show log info, the useful info will print on screen.
  *
@@ -38,7 +38,6 @@ import android.widget.ScrollView;
  */
 
 public class LogFragment extends Fragment {
-
     private LogView mLogView;
 
     private ScrollView mScrollView;
@@ -48,6 +47,7 @@ public class LogFragment extends Fragment {
 
     /**
      * load view
+     *
      * @return View
      */
     private View inflateViews() {
@@ -74,7 +74,6 @@ public class LogFragment extends Fragment {
         View result = inflateViews();
 
         mLogView.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -86,12 +85,10 @@ public class LogFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 mScrollView.post(new Runnable() {
-
                     @Override
                     public void run() {
                         mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
                     }
-
                 });
             }
 
@@ -106,13 +103,11 @@ public class LogFragment extends Fragment {
                 return true;
             }
         });
-
         mLogView.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
             }
         });
-
         return result;
     }
 

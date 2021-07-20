@@ -13,15 +13,16 @@
         See the License for the specific language governing permissions and
         limitations under the License.
 */
-package com.huawei.logger;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package com.huawei.logger;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * LogView is used to show LocationLog info
@@ -55,35 +56,33 @@ public class LogView extends TextView implements LogNode {
     public void println(int priority, String tag, String msg, Throwable tr) {
         String priorityStr = null;
         switch (priority) {
-        case LocationLog.DEBUG:
-            priorityStr = "D";
-            break;
-        case LocationLog.INFO:
-            priorityStr = "I";
-            break;
-        case LocationLog.WARN:
-            priorityStr = "W";
-            break;
-        case LocationLog.ERROR:
-            priorityStr = "E";
-            break;
-        default:
-            break;
+            case LocationLog.DEBUG:
+                priorityStr = "D";
+                break;
+            case LocationLog.INFO:
+                priorityStr = "I";
+                break;
+            case LocationLog.WARN:
+                priorityStr = "W";
+                break;
+            case LocationLog.ERROR:
+                priorityStr = "E";
+                break;
+            default:
+                break;
         }
-
         String exceptionStr = null;
         if (tr != null) {
             exceptionStr = android.util.Log.getStackTraceString(tr);
         }
         final StringBuilder outputBuilder = new StringBuilder();
-
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         Date curDate = new Date(System.currentTimeMillis());
         String str = formatter.format(curDate);
         outputBuilder.append(str);
         outputBuilder.append(" ");
         outputBuilder.append(msg);
-        outputBuilder.append((char)13).append((char)10);
+        outputBuilder.append((char) 13).append((char) 10);
 
         ((Activity) getContext()).runOnUiThread(new Runnable() {
             @Override
@@ -100,16 +99,4 @@ public class LogView extends TextView implements LogNode {
     public void appendToLog(String s) {
         append("\n" + s);
     }
-
-//    private StringBuilder appendIfNotNull(StringBuilder source, String addStr, String delimiter) {
-//        if (addStr != null) {
-//            if (addStr.length() == 0) {
-//                delimiter = "";
-//            }
-//
-//            return source.append(addStr).append(delimiter);
-//        }
-//        return source;
-//    }
-
 }

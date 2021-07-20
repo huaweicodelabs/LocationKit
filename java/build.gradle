@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         maven { url 'https://developer.huawei.com/repo/' }
+        google()
         //jcenter 2021年3月已不可用，服务更新添加mavenCentral
         jcenter()
         mavenCentral()
@@ -16,6 +17,7 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://developer.huawei.com/repo/' }
+        google()
         //jcenter 2021年3月已不可用，服务更新添加mavenCentral
         jcenter()
         mavenCentral()

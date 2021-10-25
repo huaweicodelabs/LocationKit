@@ -17,7 +17,7 @@
 1.	克隆或者下载该项目，在Android Studio或者兼容的IDE中打开下载的文件夹。
 2.	使用IDE功能在你的设备上安装配置的项目。
 ## 环境要求
-华为的Android手机上已安装HMS Core （APK）4.0.3或以上版本。
+EMUI 5.0及以上的华为手机、华为平板或Android 5.1及以上的非华为手机。
 ## 示例代码
 1.	调用GeoFenceData的addGeofence方法添加地理围栏。 代码位置是在src\main\java\com\huawei\hmssample2\geofence\GeoFenceActivity.java文件中的addGeofence方法中。
 2.	定位广播接收器。代码存储在src\main\java\com\huawei\hmssample2\location\fusedlocation\LocationBaseActivity.java文件中。
